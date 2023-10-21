@@ -1,6 +1,17 @@
-import { dataProducts } from "./data/data.js";
+import { fetchData } from "./assets/js/fetchData.js";
+import { filterProducts } from "./assets/js/filter.js";
 
 const $productCard = document.querySelector("[data-product-card]");
+
+fetchData("./data/data.json")
+  .then((productoApi) => {
+    renderCards(productoApi, $productCard);
+    console.log(filterProducts("L", productoApi ))
+
+  })
+  .catch((error) => {
+    console.error("Error al obtener los datos:", error);
+  });
 
 const renderCards = (data, container) => {
   data.forEach((card) => {
@@ -23,4 +34,3 @@ const renderCards = (data, container) => {
   });
 };
 
-renderCards(dataProducts, $productCard);
